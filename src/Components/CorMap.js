@@ -52,7 +52,10 @@ export default class Map extends Component {
     return (
       hoveredFeature && (
         <div className="tooltip" style={{left: x, top: y}}>
+          <div>Country/Region: {hoveredFeature.Country-Region}</div>
           <div>Confirmed Cases: {hoveredFeature.Confirmed}</div>
+          <div>Deaths: {hoveredFeature.Death}</div>
+          <div>Recoveries: {hoveredFeature.Recovered}</div>
         </div>
       )
     );
