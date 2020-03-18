@@ -1,0 +1,68 @@
+.txt{
+    color: white;
+    text-align: center;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.recover-txt{
+    color: lightgreen;
+    text-align: center;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.new-death-txt{
+    color: red;
+    text-align: center;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.new-case-txt{
+    color: yellow;
+    text-align: center;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.case-box{
+    margin-top: 2%;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+}
+
+.news-txt{
+    margin-bottom: 10%;
+    text-align: center;
+    color: white;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.search{
+    border-radius: 15px;
+    height: 30px;
+    width: 200px;
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.search-div{ 
+    text-align: center;
+}
+
+.btn{
+    color: white;
+    font-size: 28px;
+    font-weight: 15px;
+    text-align: center;
+    border-radius: 10px;
+    border-color: 10px;
+    width: 300px;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    background: transparent;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}

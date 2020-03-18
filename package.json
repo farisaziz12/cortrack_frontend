@@ -1,14 +1,25 @@
 {
-  "name": "bp",
+  "name": "coretrack",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@urbica/react-map-gl": "^1.13.0",
+    "@urbica/react-map-gl-cluster": "^0.2.0",
+    "d3-array": "^2.4.0",
+    "d3-scale": "^3.2.1",
+    "geojson": "^0.5.0",
+    "mapbox-gl": "^1.8.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-scripts": "3.4.0"
+    "react-map-gl": "^5.2.3",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
+    "react-simple-maps": "^0.12.1",
+    "semantic-ui-react": "^0.88.2",
+    "supercluster": "^7.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
