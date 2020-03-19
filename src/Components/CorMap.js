@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { dataLayer } from "./MapStyle.js";
-import MapGL, { Source, Layer } from "react-map-gl";
+import MapGL, { Source, Layer, GeolocateControl } from "react-map-gl";
 import {clusterLayer, clusterCountLayer, unclusteredPointLayer} from './layers';
 import './CorMap.css'
 
@@ -64,6 +64,14 @@ export default class Map extends Component {
 
 
   render() {
+
+    const geolocateStyle = {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      margin: 10
+    };
+
     return (
       <MapGL
         {...this.state.viewport}
@@ -74,6 +82,11 @@ export default class Map extends Component {
         mapboxApiAccessToken={MAPBOX_TOKEN}
         onHover={this._onHover}
       >
+        <GeolocateControl
+          style={geolocateStyle}
+          positionOptions={{enableHighAccuracy: false}}
+          trackUserLocation={true}
+        />
         <Source cluster={true} clusterMaxZoom={14} clusterRadius={100} type="geojson" data={"https://cortrack.herokuapp.com/getSessionInfo"}>
           <Layer {...clusterLayer} />
           <Layer {...clusterCountLayer} />
