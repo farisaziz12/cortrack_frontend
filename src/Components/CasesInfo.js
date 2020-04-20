@@ -12,15 +12,15 @@ export default class CasesInfo extends Component {
     }
 
     componentDidMount(){
-        fetch("https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php", {
+        fetch("https://covid19-data.p.rapidapi.com/all", {
             "method": "GET",
             "headers": {
-                "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+                "x-rapidapi-host": "covid19-data.p.rapidapi.com",
                 "x-rapidapi-key": "36d86838d4mshba08a92dbba7104p1ae352jsnf92cd7cb9983"
             }
         })
         .then(response => response.json()).then(data => 
-            this.setState({caseData: data.countries_stat
+            this.setState({caseData: data
             }))
         .catch(err => {
         console.log(err);
@@ -30,7 +30,7 @@ export default class CasesInfo extends Component {
     handleResultSelect = (e, { result }) => this.setState({ value: result.title })
 
     sortSearch = (caseData) => {
-        const results = caseData.map(country => [country, this.fuzzyMatch(country.country_name, this.state.value)]);
+        const results = caseData.map(country => [country, this.fuzzyMatch(country.country, this.state.value)]);
         results.sort((a, b) => b[1] - a[1]);
         const filteredResults = results.filter(result => result[1] > 0)
         return filteredResults
@@ -90,16 +90,20 @@ export default class CasesInfo extends Component {
         
         const filteredNews = sortedNews&& sortedNews.filter(article => article.title.includes(this.state.selectedCountry)) 
         const top3News = filteredNews? filteredNews.slice(0, 3) : undefined
-        // console.log(sortedNews)
         const { results } = this.state
-        const country = this.state.caseData.find(country => country.country_name === this.state.selectedCountry)
+        const country = this.state.caseData.find(country => country.country === this.state.selectedCountry)
+
+        function numberWithCommas(number) {
+            return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
         return (
             <div className='search-div'>
                 <h1 className='txt'>Case Info</h1>
                 <h3 className='txt'>Search for a country to get info on cases</h3>
                 <input className='search' type='text' value={this.state.value} onChange={this.handleSearchChange}/><br/>
                 {results.map(result => (
-                    <button onClick={this.handlePickCountry} className='btn' name={result[0].country_name}>{result[0].country_name}</button>
+                    <button onClick={this.handlePickCountry} className='btn' name={result[0].country}>{result[0].country}</button>
                 ))}
 
                 <div className='result'> 
@@ -107,13 +111,11 @@ export default class CasesInfo extends Component {
                     <>
                     <div className='case-box'>
                         <h1 className='txt'>Country: {country.country_name}</h1>
-                        <h2 className='txt'>Cases: {country.cases}</h2>
-                        <h2 className='txt'>Deaths: {country.deaths}</h2>
-                        <h2 className='new-case-txt'>New Cases: {country.new_cases}</h2>
-                        <h2 className='new-death-txt'>New Deaths: {country.new_deaths}</h2>
-                        <h2 className='recover-txt'>Total Recovered: {country.total_recovered}</h2>
-                        <h3 className='txt'>Percent of infected who have died: {(parseFloat(country.deaths.replace(/,/g, ''))/parseFloat(country.cases.replace(/,/g, '')) * 100).toFixed(2) + "%"}</h3>
-                        <h3 className='txt'>Percent of infected who have recovered: {(parseFloat(country.total_recovered.replace(/,/g, ''))/parseFloat(country.cases.replace(/,/g, '')) * 100).toFixed(2) + "%"}</h3>
+                        <h2 className='new-case-txt'>Cases: {numberWithCommas(country.confirmed)}</h2>
+                        <h2 className='new-death-txt'>Deaths: {numberWithCommas(country.deaths)}</h2>
+                        <h2 className='recover-txt'>Total Recovered: {country.recovered === 0? "Insufficient Data" : numberWithCommas(country.recovered)}</h2>
+                        <h3 className='txt'>Percent of infected who have died: {(parseFloat(country.deaths)/parseFloat(country.confirmed) * 100).toFixed(2) + "%"}</h3>
+                        <h3 className='txt'>Percent of infected who have recovered: {country.recovered === 0? "Insufficient Data" : (parseFloat(country.recovered)/parseFloat(country.confirmed) * 100).toFixed(2) + "%"}</h3>
                     </div>
                     <div className='case-box'>
                         <h1 className='txt'>Latest News:</h1>

@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { dataLayer } from "./MapStyle.js";
 import MapGL, { Source, Layer, GeolocateControl } from "react-map-gl";
 import {clusterLayer, clusterCountLayer, unclusteredPointLayer} from './layers';
 import './CorMap.css'
 
-// * as
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoiZmFyaXNheml6MTIiLCJhIjoiY2s3cXM3NzBvMDVrZjNlcDRlM2s1N2R3aiJ9.lBO4VnTnXaP9ZpZcJndkIA";

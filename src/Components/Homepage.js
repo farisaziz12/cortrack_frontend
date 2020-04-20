@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Homepage.css";
 import { Link } from "react-router-dom";
-// import * as data from "../data/countries.geojson";
 
 
 export default class Homepage extends Component {
@@ -38,10 +37,10 @@ export default class Homepage extends Component {
         })
 
 
-        fetch("http://ip-api.com/json").then(resp => resp.json()).then(resp => 
-        fetch(`https://gnews.io/api/v3/search?q=${resp.country}%20coronavirus%20news&token=6385a60f5d387a9bf5fd4f8d033f4168`)
+        fetch("https://ipapi.co/8.8.8.8/json/").then(resp => resp.json()).then(resp => 
+        fetch(`https://gnews.io/api/v3/search?q=${resp.country_name}%20coronavirus%20news&token=6385a60f5d387a9bf5fd4f8d033f4168`)
             .then(response => response.json()).then(news => 
-                this.setState({newsForCurrentCountry: news.articles, currentCountry: resp.country
+                this.setState({newsForCurrentCountry: news.articles, currentCountry: resp.country_name
             }))
             .catch(err => {
                 console.log(err);
@@ -57,8 +56,8 @@ export default class Homepage extends Component {
 
     const top5News = sortedNews? sortedNews.slice(0, 5) : undefined
     const { currentCountry, caseData, newsForCurrentCountry } = this.state
-    const currentCountryCaseData = caseData[0]&& currentCountry? caseData.filter(Ccase => Ccase.country_name === currentCountry) : undefined
-    console.log(currentCountryCaseData)
+    const currentCountryCaseData = caseData[0]&& currentCountry? caseData.filter(Ccase => Ccase.country_name === currentCountry) : []
+    console.log(currentCountryCaseData, currentCountry)
     const currentCountrySortedNews = 
         newsForCurrentCountry&& newsForCurrentCountry[0]? newsForCurrentCountry.sort((a,b) => {
             return new Date(b.publishedAt) - new Date(a.publishedAt);
@@ -80,7 +79,7 @@ export default class Homepage extends Component {
         </Link> <br/>
 
         <div className='result'> 
-            {currentCountry && currentCountryCaseData[0]&&
+            {currentCountry&& currentCountryCaseData[0]&&
             <>
             <div className='case-box'>
                 <h1 className='txt'>Current Country: {currentCountryCaseData[0].country_name}</h1>
